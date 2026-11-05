@@ -16,6 +16,13 @@ paths:
       summary: List all tasks
       tags:
         - Tasks
+      parameters:
+        - name: completed
+          in: query
+          required: false
+          description: Filter tasks by completion status. Leave it out to get all tasks.
+          schema:
+            type: boolean
       responses:
         '200':
           description: OK
@@ -25,6 +32,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
+        '400':
+          description: completed is not true or false
+          content:
+            application/json:
+              example:
+                errors:
+                  - completed must be either true or false
     post:
       summary: Create a new task
       tags:
